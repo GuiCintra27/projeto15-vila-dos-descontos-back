@@ -1,4 +1,26 @@
 {
+  "name": "projeto15-vila-dos-descontos-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "start": "npx node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuiCintra27/projeto15-vila-dos-descontos-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuiCintra27/projeto15-vila-dos-descontos-back/issues"
+  },
+  "homepage": "https://github.com/GuiCintra27/projeto15-vila-dos-descontos-back#readme",
+  "description": "",
   "dependencies": {
     "axios": "^1.2.0",
     "bcrypt": "^5.1.0",
