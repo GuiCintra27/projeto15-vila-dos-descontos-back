@@ -1,4 +1,4 @@
-import { insertProductsModel } from "../models/productsModel";
+import { insertProductsModel } from "../models/productsModel.js";
 
 export async function productsValidation(req, res, next) {
     const { error } = insertProductsModel.validate(req.body, { abortEarly: false })
