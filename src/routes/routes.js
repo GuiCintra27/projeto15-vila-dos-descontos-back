@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { registerValidation } from "../middlewares/registerValidate.middleware.js";
-import { register } from "../controllers/register.controller.js";
+import { loginValidation, registerValidation } from "../middlewares/registerValidate.middleware.js";
+import { signIn, signUp } from "../controllers/login.controller.js";
 
 const router = Router();
 
-router.post("/register", registerValidation, register);
-/* router.post(); */
+router.post("/sign-up", registerValidation, signUp);
+router.post("/sign-in", loginValidation, signIn);
 
 export default router;
