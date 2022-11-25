@@ -15,3 +15,4 @@ export const salles = db.collection("salles");
 export const products = db.collection("products");
 export const users = db.collection("users");
 export const sessions = db.collection("sessions");
+export const registers = db.collection("registers");
