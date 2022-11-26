@@ -9,7 +9,7 @@ export async function signUp(req, res) {
     try {
 
         const hashPassword = bcrypt.hashSync(user.password, 10);
-        await users.insertOne({ ...user, password: hashPassword });
+        await users.insertOne({ ...user, password: hashPassword, address: [{}]});
 
         res.send("OK")
 
