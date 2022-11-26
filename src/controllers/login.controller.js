@@ -1,5 +1,7 @@
-import { registers } from "../database/db.js";
+import { registers, sessions } from "../database/db.js";
 import bcrypt from "bcrypt";
+import { v4 as uuidV4 } from 'uuid';
+
 
 export async function signUp(req, res) {
     const user = req.body;
@@ -25,9 +27,13 @@ export async function signIn(req, res) {
 
     try {
 
+        const token = uuidV4();
         const searchName = await registers.findOne({ email: email });
-
-        res.status(200).send(searchName)
+        await sessions.insertOne({
+            token,
+            userId: searchName._id,
+        });
+        res.status(200).send(searchName);
 
     } catch (err) {
 
