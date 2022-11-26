@@ -1,5 +1,7 @@
-import { registers } from "../database/db.js";
+import { users, sessions } from "../database/db.js";
 import bcrypt from "bcrypt";
+import { v4 as uuidV4 } from 'uuid';
+
 
 export async function signUp(req, res) {
     const user = req.body;
@@ -7,7 +9,7 @@ export async function signUp(req, res) {
     try {
 
         const hashPassword = bcrypt.hashSync(user.password, 10);
-        await registers.insertOne({ ...user, password: hashPassword });
+        await users.insertOne({ ...user, password: hashPassword, address: [{}]});
 
         res.send("OK")
 
@@ -25,9 +27,13 @@ export async function signIn(req, res) {
 
     try {
 
-        const searchName = await registers.findOne({ email: email });
-
-        res.status(200).send(searchName)
+        const token = uuidV4();
+        const searchName = await users.findOne({ email: email });
+        await sessions.insertOne({
+            token,
+            userId: searchName._id,
+        });
+        res.status(200).send(searchName);
 
     } catch (err) {
 
