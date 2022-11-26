@@ -1,16 +1,16 @@
 import dotenv from "dotenv";
-import {MongoClient} from "mongodb";
+import { MongoClient } from "mongodb";
 dotenv.config();
 
 const mongoClient = new MongoClient(process.env.MONGO_URI);
 
-try{
+try {
     await mongoClient.connect();
-}catch(err){
+} catch (err) {
     console.log(err);
 }
 
-const db =  mongoClient.db("vila-dos-descontos-db");
+const db = mongoClient.db("vila-dos-descontos-db");
 export const salles = db.collection("salles");
 export const products = db.collection("products");
 export const users = db.collection("users");
