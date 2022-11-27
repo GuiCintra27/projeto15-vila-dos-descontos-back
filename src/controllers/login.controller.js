@@ -5,6 +5,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 export async function signUp(req, res) {
     const user = req.body;
+    console.log(user)
 
     try {
 
