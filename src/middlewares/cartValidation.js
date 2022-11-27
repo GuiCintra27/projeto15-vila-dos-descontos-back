@@ -14,8 +14,6 @@ export async function cartValidation(req, res, next) {
     try{
         const productToCart = await products.findOne({name: productName});
 
-        console.log(productToCart)
-
         if(!productToCart){
             return res.sendStatus(404);
         }
