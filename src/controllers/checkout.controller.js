@@ -3,15 +3,15 @@ import { users, sessions, userBuy } from "../database/db.js";
 export async function checkOut(req, res){
 
     const user = req.body;
-    console.log(user);
+    console.log(user.product);
 
     try{
-        const compraConcluida = {
+        const compraConcluida = [{
             name: user.name,
             token: user.TOKEN,
-            products: user.products
+            products: user.product
             
-        }
+        }]
         await userBuy.insertOne(compraConcluida);
         const session = await sessions.findOne({token: user.TOKEN});
         const userInt = await users.findOne({_id: session.userId});
@@ -32,8 +32,6 @@ export async function checkOut(req, res){
                 ]
             }
         });
-
-        console.log(userUpdate);
 
         return res.send({message: "Compra efetuada com sucesso!"})
 
