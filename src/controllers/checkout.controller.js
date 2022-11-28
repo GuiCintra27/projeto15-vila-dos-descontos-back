@@ -1,16 +1,44 @@
-import { users } from "../database/db.js";
+import { users, sessions, userBuy } from "../database/db.js";
 
 export async function checkOut(req, res){
 
-    const user = req.user;
+    const {TOKEN} = req.body;
+    const user = req.body
+    const {name} = req.headers
 
     try{
-
-        const userProducts = await users.findOne({
-            _id: user._id
+        console.log(user)
+        const session = await sessions.findOne({token: TOKEN});
+        const userInt = await users.findOne({_id: session.userId});
+        const userUpdate = await users.updateOne({ email: userInt.email }, {
+            $set:
+            {
+                address: [
+                    ...userInt.address,
+                    {
+                        street: user.street,
+                        hNumber: user.hNumber,
+                        thing: user.thing,
+                        neighborhood: user.neighborhood,
+                        city: user.city,
+                        state: user.state,
+                        cep: user.cep,
+                    }
+                ]
+            }
         });
 
+        const compraConcluida = {
+            name,
+            token: TOKEN,
+            products: user.products
+            
+        }
 
+        
+        await userBuy.insertOne(compraConcluida);
+
+        console.log(userUpdate)
 
     } catch (err) {
 
@@ -18,6 +46,5 @@ export async function checkOut(req, res){
         return res.sendStatus(500);
 
     }
-
 
 }
