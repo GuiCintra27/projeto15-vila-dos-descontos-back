@@ -13,6 +13,7 @@ export async function signUp(req, res) {
         await users.insertOne({ ...user, password: hashPassword, cart: [{}] ,address: [{}]});
         res.send("OK");
 
+
     } catch (err) {
 
         console.log(err);
@@ -26,7 +27,6 @@ export async function signIn(req, res) {
     const { email } = req.body;
 
     try {
-
         const token = uuidV4();
         const searchName = await users.findOne({ email: email });
         const searchUser = {
@@ -42,6 +42,7 @@ export async function signIn(req, res) {
 
 
         res.status(200).send(user);
+
 
     } catch (err) {
 
