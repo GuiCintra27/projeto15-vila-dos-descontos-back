@@ -38,7 +38,9 @@ export async function checkOut(req, res){
         
         await userBuy.insertOne(compraConcluida);
 
-        console.log(userUpdate)
+        console.log(userUpdate);
+
+        return res.send("Compra efetuada com sucesso!")
 
     } catch (err) {
 
