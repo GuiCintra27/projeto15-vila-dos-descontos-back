@@ -5,13 +5,14 @@ import { v4 as uuidV4 } from 'uuid';
 
 export async function signUp(req, res) {
     const user = req.body;
+    console.log(user);
 
     try {
 
         const hashPassword = bcrypt.hashSync(user.password, 10);
-        await users.insertOne({ ...user, password: hashPassword, address: [{}], cart:[]});
+        await users.insertOne({ ...user, password: hashPassword, cart: [{}] ,address: [{}]});
+        res.send("OK");
 
-        res.send("OK")
 
     } catch (err) {
 
@@ -28,11 +29,20 @@ export async function signIn(req, res) {
     try {
         const token = uuidV4();
         const searchName = await users.findOne({ email: email });
-        await sessions.insertOne({
-            token,
+        const searchUser = {
+            token: token,
             userId: searchName._id,
-        });
-        res.status(200).send(token);
+        }
+        await sessions.insertOne(searchUser);
+        const user = {
+            searchName,
+            searchUser
+        }
+        console.log(user.searchUser)
+
+
+        res.status(200).send(user);
+
 
     } catch (err) {
 
